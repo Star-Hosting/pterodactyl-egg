@@ -22,21 +22,6 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-# OpenJDK 21
-RUN apt update \
-   && apt install -y libc6-i386 libc6-x32 \
-   && wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O jdk-21_linux-x64_bin.deb \
-   && apt install -y ./jdk-21_linux-x64_bin.deb \
-   && rm jdk-21_linux-x64_bin.deb
-
-ENV JAVA_HOME=/usr/lib/jvm/jdk-17/
-ENV PATH=$PATH:$JAVA_HOME/bin
-
-# jENV
-RUN git clone https://github.com/jenv/jenv.git /usr/local/.jenv
-ENV PATH="/usr/local/.jenv/bin:$PATH"
-RUN jenv init -
-
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
    && apt -y install nodejs \
@@ -78,15 +63,6 @@ RUN curl -OL https://golang.org/dl/go1.19.5.linux-amd64.tar.gz \
    && tar -C /usr/local -xvf go1.19.5.linux-amd64.tar.gz   
 ENV PATH=$PATH:/usr/local/go/bin
 ENV GOROOT=/usr/local/go
-
-#.NET Core Runtime and SDK
-RUN wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
-   && dpkg -i packages-microsoft-prod.deb \ 
-   && rm packages-microsoft-prod.deb \
-   && apt-get update \
-   && apt-get install -y apt-transport-https \
-   && apt-get update \
-   && apt-get install -y aspnetcore-runtime-6.0 dotnet-sdk-6.0 
 
 # Install the system dependencies required for puppeteer support
 RUN apt-get install -y \
