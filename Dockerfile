@@ -46,10 +46,6 @@ RUN apt update \
    && rm -rf Python-3.11.1 \
    && rm Python-3.11.*.tgz 
 
-# Upgrade Pip
-RUN apt -y install python python-pip python3-pip \
-   && pip3 install --upgrade pip
-
 # BUN
 RUN curl --fail --location --progress-bar --output "bun.zip" "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip" \
   || { echo "Failed to download Bun: $?" ; exit 1; }
