@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 LABEL author="JIRAYU"
 
@@ -21,6 +21,10 @@ RUN apt-get update && \
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
+
+# OpenJDK 17
+RUN apt update \
+   && apt install -y openjdk-17-jre-headless
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
@@ -110,4 +114,4 @@ WORKDIR /home/container
 
 COPY ./entrypoint.sh /entrypoint.sh
 
-CMD ["/bin/bash", "/entrypoint.sh"]
+CMD ["bash", "/entrypoint.sh"]
