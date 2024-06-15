@@ -1,5 +1,4 @@
 FROM debian:bullseye
-
 LABEL author="JIRAYU"
 
 RUN apt update \
