@@ -23,7 +23,9 @@ ENV LC_ALL en_US.UTF-8
 
 # OpenJDK 17
 RUN apt update \
-   && apt install -y openjdk-17-jre-headless
+   && wget https://download.oracle.com/java/21/archive/jdk-21.0.2_linux-x64_bin.deb \
+   && apt install ./jdk-21.0.2_linux-x64_bin.deb \
+   && rm ./jdk-21.0.2_linux-x64_bin.deb
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
